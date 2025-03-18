@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import adminVehicleRouter from './routes/adminVehicle.routes.js';
 
 let app = express();
 app.use(bodyParser.json());
@@ -16,13 +17,7 @@ connection.once("open", () => {
 });
 
 
-
-app.get("/", (req, res) => {
-    console.log("Hello World");
-    res.json({message: "Helllow World" + req.body.message});
-})
-
-
+app.use("/api/adminVehicle", adminVehicleRouter);
 
 app.listen(3000,() => {
     console.log('Server is running on port 3000');
