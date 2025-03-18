@@ -177,12 +177,7 @@ const AdminVehicleSchema = new mongoose.Schema({
         }
     },
 
-    // History of rentals for tracking past usage
-    rentalHistory: [{
-        renterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        startDate: Date,
-        endDate: Date
-    }],
+
     
 
     // who added the vehicle
