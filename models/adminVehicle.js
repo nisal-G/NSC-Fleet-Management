@@ -1,4 +1,4 @@
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
  
 const AdminVehicleSchema = new mongoose.Schema({
 
@@ -46,13 +46,13 @@ const AdminVehicleSchema = new mongoose.Schema({
         max: new Date().getFullYear()
     },
 
-    registratiomNumber: {
+    registrationNumber: {
         type: String,
         required: true,
         unique: true,
     },
 
-    chassiNumber: {
+    chassisNumber : {
         type: String,
         required: true,
         unique: true,
@@ -109,14 +109,14 @@ const AdminVehicleSchema = new mongoose.Schema({
 
     // Vehicle images
     vehicleImages: {
-        type: String,
+        type: [String],
         required: true,
         default: ""
     },
 
     // Documentation Images (insurance, registrartion copies)
-    documnetationImages: {
-        type: String,
+    documentationImages: {
+        type: [String],
         required: true,
         default: []
     },
@@ -136,7 +136,7 @@ const AdminVehicleSchema = new mongoose.Schema({
 
     // Maintenance records including mileage and service dates
     maintenance: {
-        milage: {
+        mileage: {
             type: Number,
             required: true,
             min: 0
@@ -155,7 +155,7 @@ const AdminVehicleSchema = new mongoose.Schema({
     },
 
     // Verification details ensuring that only verified vehicles are available
-    verificaton: {
+    verification: {
         verified: {
             type: Boolean,
             default: false,
@@ -166,19 +166,24 @@ const AdminVehicleSchema = new mongoose.Schema({
         }
     },
 
-    // History of rentals for tracking past usage
-    rentalHistory: {
-        rentersId: {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'User'
+    // Decoration information
+    decoration: {
+        decorated: {
+            type: Boolean, 
+            default: false  
         },
-        startDate: {
-            type: Date
-        },
-        endDate: {
-            type: Date
+        decorationStyle: {
+            type: String
         }
     },
+
+    // History of rentals for tracking past usage
+    rentalHistory: [{
+        renterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        startDate: Date,
+        endDate: Date
+    }],
+    
 
     // who added the vehicle
     addedBy: {
@@ -196,4 +201,4 @@ const AdminVehicleSchema = new mongoose.Schema({
 
 let Vehicle = mongoose.model("vehicle", AdminVehicleSchema);
 
-export default Vehicle
+export default Vehicle;
